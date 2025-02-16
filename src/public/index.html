@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3Dモデルビューアー</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- model-viewerのインポート -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>3Dモデルビューアー</h1>
+        </header>
+
+        <main>
+            <section class="upload-section">
+                <div class="upload-area" id="dropZone">
+                    <input type="file" id="fileInput" accept=".glb" hidden>
+                    <div class="upload-content">
+                        <img src="/images/upload-icon.svg" alt="アップロード" class="upload-icon">
+                        <p>GLBファイルをドラッグ＆ドロップ</p>
+                        <p>または</p>
+                        <button id="selectFileBtn" class="btn-primary">ファイルを選択</button>
+                    </div>
+                </div>
+                <div id="uploadProgress" class="progress-bar" hidden>
+                    <div class="progress-fill"></div>
+                    <span class="progress-text">0%</span>
+                </div>
+            </section>
+
+            <section class="viewer-section" hidden>
+                <model-viewer id="modelViewer"
+                    camera-controls
+                    auto-rotate
+                    style="width: 100%; height: 500px; background-color: #f0f0f0;"
+                    exposure="1">
+                </model-viewer>
+                <div class="viewer-controls">
+                    <button id="resetCamera" class="btn-secondary">カメラリセット</button>
+                    <div class="exposure-control">
+                        <label for="exposureSlider">露光</label>
+                        <div class="exposure-inputs">
+                            <input type="range" id="exposureSlider" min="0" max="2" step="0.1" value="1">
+                            <input type="number" id="exposureInput" min="0" max="2" step="0.1" value="1">
+                        </div>
+                    </div>
+                    <div class="environment-control">
+                        <label for="environmentSelect">環境マップ</label>
+                        <select id="environmentSelect" class="environment-select">
+                            <option value="neutral">Neutral</option>
+                            <option value="legacy">Legacy</option>
+                            <option value="https://modelviewer.dev/shared-assets/environments/spruit_sunrise_1k_HDR.hdr">Spruit Sunrise</option>
+                            <option value="https://modelviewer.dev/shared-assets/environments/aircraft_workshop_01_1k.hdr">Aircraft Workshop</option>
+                            <option value="https://modelviewer.dev/shared-assets/environments/music_hall_01_1k.hdr">Music Hall</option>
+                            <option value="https://modelviewer.dev/shared-assets/environments/pillars_1k.hdr">Pillars</option>
+                            <option value="https://modelviewer.dev/shared-assets/environments/whipple_creek_regional_park_04_1k.hdr">Whipple Creek</option>
+                        </select>
+                    </div>
+                    <div class="theme-switch">
+                        <label class="switch">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="theme-label">ダークモード</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div id="notification" class="notification" hidden>
+            <span class="notification-message"></span>
+            <button class="notification-close">&times;</button>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+</body>
+</html> 

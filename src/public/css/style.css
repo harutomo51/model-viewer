@@ -1,0 +1,470 @@
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --error-color: #dc3545;
+    --background-color: #f8f9fa;
+    --border-color: #dee2e6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* メインレイアウト */
+main {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 1rem;
+    min-height: calc(100vh - 150px);
+}
+
+.upload-section {
+    width: 20%;
+    min-width: 250px;
+    margin-bottom: 0;
+}
+
+.viewer-section {
+    flex-grow: 1;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* アップロードエリア */
+.upload-area {
+    height: 100%;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    background-color: white;
+    transition: border-color 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.upload-area.drag-over {
+    border-color: var(--primary-color);
+    background-color: rgba(74, 144, 226, 0.1);
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.5rem;
+}
+
+/* ボタン */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #357abd;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* プログレスバー */
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 1rem;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary-color);
+    width: 0;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* 3Dビューアー */
+model-viewer {
+    width: 100% !important;
+    height: 600px !important;
+    background-color: #f0f0f0;
+    display: block;
+    margin: 0 auto;
+    transition: background-color 0.3s ease;
+}
+
+/* ダークテーマ */
+.dark-theme model-viewer {
+    background-color: #1a1a1a;
+    transition: background-color 0.3s ease;
+}
+
+.viewer-controls {
+    margin-top: 1rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* 通知 */
+.notification {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 1000;
+}
+
+.notification.success {
+    border-left: 4px solid var(--success-color);
+}
+
+.notification.error {
+    border-left: 4px solid var(--error-color);
+}
+
+.notification-message {
+    flex-grow: 1;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+
+    .upload-section {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .viewer-section {
+        width: 100%;
+    }
+
+    .upload-area {
+        height: auto;
+        padding: 1rem;
+    }
+
+    model-viewer {
+        height: 60vh !important;
+        min-height: 360px !important;
+    }
+
+    .notification {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+    }
+}
+
+/* テーマ切り替えスイッチ */
+.theme-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.theme-label {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+/* ビューアーコントロール */
+.viewer-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+/* 露光コントロール */
+.exposure-control {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 150px;
+}
+
+.exposure-control label {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.exposure-inputs {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.exposure-inputs input[type="range"] {
+    flex: 1;
+    height: 4px;
+    -webkit-appearance: none;
+    background: var(--border-color);
+    border-radius: 2px;
+    outline: none;
+}
+
+.exposure-inputs input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.exposure-inputs input[type="range"]::-webkit-slider-thumb:hover {
+    background: #357abd;
+}
+
+.exposure-inputs input[type="range"]::-webkit-slider-track {
+    height: 4px;
+    background: var(--border-color);
+    border-radius: 2px;
+}
+
+.exposure-inputs input[type="number"] {
+    width: 60px;
+    padding: 4px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.exposure-inputs input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Firefox用のスタイル */
+.exposure-inputs input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.exposure-inputs input[type="range"]::-moz-range-thumb:hover {
+    background: #357abd;
+}
+
+.exposure-inputs input[type="range"]::-moz-range-track {
+    height: 4px;
+    background: var(--border-color);
+    border-radius: 2px;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .viewer-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .exposure-control {
+        margin: 1rem 0;
+    }
+
+    .theme-switch {
+        margin-left: 0;
+        justify-content: center;
+    }
+}
+
+/* 環境マップ選択 */
+.environment-control {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 150px;
+}
+
+.environment-control label {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.environment-select {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.environment-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.environment-select:hover {
+    border-color: var(--primary-color);
+}
+
+/* レスポンシブ対応の更新 */
+@media (max-width: 768px) {
+    .viewer-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .exposure-control,
+    .environment-control {
+        margin: 1rem 0;
+    }
+
+    .theme-switch {
+        margin-left: 0;
+        justify-content: center;
+    }
+} 
